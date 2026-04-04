@@ -1,7 +1,7 @@
-USER_PANEL=mi_usuario
-PASS_PANEL=mi_contrase
+USER_PANEL=mi_user
+PASS_PANEL=mi_contra
 
-HEADLESS=True or False
+HEADLESS=true        # true=sin navegador, false=navegador en primer plano
 # CHROME_PATH=/usr/bin/google-chrome  # Opcional
 
 # 🌐 URLs - MODO LOCAL (file://)
@@ -20,3 +20,13 @@ DATA_PATH=./data
 
 DISPLAY=0
 PYTHONUNBUFFERED=1
+
+# 📊 GOOGLE SHEETS
+GSHEET_CREDENTIALS_PATH=./path_credential
+GSHEET_SPREADSHEET_NAME=pt
+GSHEET_WORKSHEET_NAME=pt2
+GSHEET_SPREADSHEET_ID=id_SPREADSHEET
+
+# 🔄 Comportamiento de escritura
+GSHEET_APPEND_MODE=true        # true=agregar filas, false=sobrescribir hoja
+GSHEET_INCLUDE_TIMESTAMP=true 

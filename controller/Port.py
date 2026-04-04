@@ -201,11 +201,10 @@ class Port:
             self.config.log.comentario("INFO", f"Procesando {rows_to_process} de {total_rows} filas")
             
             extracted = []
-            for i in range(1, rows_to_process + 1):  # XPath es 1-based
+            for i in range(1, rows_to_process + 1):  
                 row_data = await self._extract_row_data(i)
                 if row_data:
                     extracted.append(row_data)
-                    # Pequeño delay para no saturar
                     if i % 10 == 0:
                         await asy_slp(0.1)
             
@@ -238,7 +237,7 @@ class Port:
             if login_status == "no logged":
                 result["status"] = "no logged"
                 result["error"] = "Session not active"
-                return result  # 🚫 Sin reintentos
+                return result 
             
             if login_status == "error":
                 result["error"] = "Error verificando sesión"
@@ -252,6 +251,7 @@ class Port:
                 result["error"] = "Falló filtro Estado"
                 return result
             
+            
             # Validar filas (warning si falla)
             await self._verify_entrante_rows(3)
             
@@ -259,11 +259,11 @@ class Port:
             await self._apply_paginator_200()
             
             # Extraer e imprimir
-            extracted = await self._extract_table_data(max_rows=max_rows)
-            if extracted:
-                print(f"\n📊 Datos extraídos ({len(extracted)}):")
-                for row in extracted:
-                    print(f"   • {row}")
+            extracted = await self._extract_table_data(max_rows)
+            # if extracted:
+            #     print(f"\n📊 Datos extraídos ({len(extracted)}):")
+            #     for row in extracted:
+            #         print(f"   • {row}")
             
             result["status"] = "success"
             result["data"] = extracted

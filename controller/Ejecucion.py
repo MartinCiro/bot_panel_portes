@@ -365,7 +365,6 @@ class Ejecuciones:
                 print("❌ Error en el proceso")
                 self.notificador.notificar_error(
                     f"❌ Error en el proceso de extracción\n"
-                    f"👤 Usuario: {user_email}\n"
                     f"📅 Fecha: {datetime.now().strftime('%d/%m/%Y %H:%M')}"
                 )
                 return {
@@ -378,7 +377,6 @@ class Ejecuciones:
             print_exc()
             self.notificador.notificar_error(
                 f"💥 Error crítico en ejecución\n"
-                f"👤 Usuario: {user_email}\n"
                 f"❌ Error: {str(e)[:100]}...\n"
                 f"📅 Fecha: {datetime.now().strftime('%d/%m/%Y %H:%M')}"
             )
