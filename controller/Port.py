@@ -243,15 +243,6 @@ class Port:
                 result["error"] = "Error verificando sesión"
                 return result
             
-            # Aplicar filtros
-            if not await self._apply_tipo_filter():
-                result["error"] = "Falló filtro Tipo"
-                return result
-            if not await self._apply_estado_filter():
-                result["error"] = "Falló filtro Estado"
-                return result
-            
-            
             # Validar filas (warning si falla)
             await self._verify_entrante_rows(3)
             
