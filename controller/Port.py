@@ -251,7 +251,6 @@ class Port:
                 result["error"] = "Falló filtro Estado"
                 return result
             
-            
             # Validar filas (warning si falla)
             await self._verify_entrante_rows(3)
             
