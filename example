@@ -1,0 +1,22 @@
+USER_PANEL=mi_usuario
+PASS_PANEL=mi_contrase
+
+HEADLESS=True or False
+# CHROME_PATH=/usr/bin/google-chrome  # Opcional
+
+# 🌐 URLs - MODO LOCAL (file://)
+PANEL_BASE_URL=file:/
+PANEL_LOGIN_URL=file:/
+PANEL_PORTABILIDADES_URL=file:/
+
+# ⏱️ Timeouts
+TIMEOUT=30
+MAX_RETRIES=3
+RETRY_DELAY=5.0
+
+# 📁 Rutas
+LOGS_PATH=./logs
+DATA_PATH=./data
+
+DISPLAY=0
+PYTHONUNBUFFERED=1

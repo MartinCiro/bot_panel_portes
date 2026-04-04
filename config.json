@@ -1,0 +1,30 @@
+{
+    "facebook": {
+        "scraping": {
+            "max_posts": 20,
+            "scroll_attempts": 3,
+            "request_delay": 2.0,
+            "max_retries": 3
+        },
+        "stealth": {
+            "headless": false,
+            "rotate_ua": true,
+            "random_delays": true
+        },
+        "groups": [
+            "https://facebook.com/groups/tu_grupo_1",
+            "https://facebook.com/groups/tu_grupo_2"
+        ]
+    },
+    "storage": {
+        "screenshots": "./screenshots",
+        "data": "./data",
+        "cookies": "./cookies"
+    },
+    "email": "correoGmail",
+    "passwd": "contraseña_de_aplicaciones",
+    "KEY": "apiKey_gemini",
+    "SELENIUM": {
+        "driver_path": "//plugins//gecko//geckodriver.exe"
+    }
+}
