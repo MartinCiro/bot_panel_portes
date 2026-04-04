@@ -48,7 +48,6 @@ class Config:
         # 📁 RUTAS DE ALMACENAMIENTO
         self.cookies_base_path: str = "./cookies"
         self.logs_path: str = self._get_env_variable("LOGS_PATH", "./logs")
-        self.data_path: str = self._get_env_variable("DATA_PATH", "./data")
         
         # 🔄 CONFIGURACIÓN DE REINTENTOS Y TIMEOUTS
         self.max_retries: int = int(self._get_env_variable("MAX_RETRIES", "3"))
@@ -160,7 +159,7 @@ class Config:
 
     def _init_directories(self):
         """Crea directorios base si no existen"""
-        for path_dir in [self.logs_path, self.cookies_base_path, self.data_path]:
+        for path_dir in [self.logs_path, self.cookies_base_path]:
             if not os_path.exists(path_dir):
                 makedirs(path_dir, exist_ok=True)
                 self.log.comentario("INFO", f"Directorio creado: {path_dir}")
