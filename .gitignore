@@ -171,3 +171,4 @@ data/*
 sms
 logs
 *.txt
+credentials.json

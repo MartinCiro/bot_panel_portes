@@ -74,10 +74,39 @@ async def run_full_flow(config: Config) -> int:
         
         # 📋 Procesar resultado
         print(f"\n{'-'*70}")
-        if result["status"] == "success":
-            print("✅ EXTRACCIÓN EXITOSA")
-            print(f"📦 Registros: {result.get('total_extracted', 0)}")
+        if result["status"] == "success" and result["data"]:
+            print("\n📤 Fase 3: Exportando a Google Sheets")
+            if browser:
+                await browser.close()
+            if playwright:
+                await playwright.stop()
+            
+            from controller.GoogleSheets import GoogleSheets
+            from controller.utils.Helpers import Helpers
+            
+            helpers = Helpers()  
+            gs = GoogleSheets(config, helpers)
+            
+            # Conectar y abrir spreadsheet
+            if gs.open_spreadsheet() and gs.select_worksheet():
+                # Opcional: establecer headers si es la primera vez
+                headers = ["fecha_solicitud", "documento_identidad", "operador_donante", "timestamp"]
+                if not gs.get_headers():
+                    gs.set_headers(headers)
+                
+                # Insertar datos extraídos
+                insert_result = gs.append_rows(result["data"])
+                
+                if insert_result["success"] > 0:
+                    print(f"✅ {insert_result['success']} registros exportados a Google Sheets")
+                else:
+                    print(f"⚠️ Error exportando: {insert_result.get('error')}")
+            else:
+                print("⚠️ No se pudo conectar a Google Sheets (verificar credenciales)")
+            
+            gs.disconnect()
             return 0
+        
         elif result["status"] == "no logged":
             print("⚠️  SESIÓN NO ACTIVA (sin reintentos)")
             print(f"💡 {result.get('error')}")
@@ -89,7 +118,6 @@ async def run_full_flow(config: Config) -> int:
             
     finally:
         # 🧹 Cerrar navegador (siempre, al final)
-        print(f"\n🔚 Cerrando navegador...")
         if browser:
             await browser.close()
         if playwright:
@@ -100,7 +128,6 @@ async def main():
     try:
         config = Config()
         print(f"⚙️ Modo: {'📁 LOCAL' if config.is_local_mode() else '🌐 REMOTO'}")
-        print(f"👤 Usuario: {config.user_panel}")
         
         exit_code = await run_full_flow(config)
         

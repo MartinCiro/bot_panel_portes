@@ -101,7 +101,7 @@ class Login:
                 timeout=5000, 
                 delay=50
             )
-            
+            # return True
             # 5. Esperar navegación/respuesta
             await self.page.wait_for_load_state("networkidle")
             await asy_slp(uniform(1, 2))
