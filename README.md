@@ -2,7 +2,7 @@
 
 ## 📋 Requisitos y configuración inicial
 
-### Instalar dependencias
+### 1. Instalar dependencias
 
 #### Windows
 
@@ -49,10 +49,73 @@ TELEGRAM_CHAT=id usuario
 python -m venv venv; venv\Scripts\activate; pip install pipreqs; pipreqs . --force
 ```
 
-### Ejecutar proyecto
+### Herramientas
+
+#### Descomprimir
+
+##### Windows
 
 ```bash
-python main.py
+Expand-Archive -Path offline_packages.zip -DestinationPath packages
+```
+
+##### Linux
+
+```bash
+unzip offline_packages.zip -o packages
+```
+
+#### Comprimir
+
+##### Windows
+
+```bash
+Compress-Archive -Path .\offline_packages\* -DestinationPath offline_packages.zip -CompressionLevel Optimal
+
+# ó
+Compress-Archive -Path * -DestinationPath offline.zip -CompressionLevel Optimal
+```
+
+##### Linux
+
+```bash
+zip -9 -r offline_packages.zip ./offline_packages/
+```
+
+#### Eliminar archivo
+
+##### Windows
+
+```bash
+Remove-Item -Recurse -Force packages
+```
+
+##### Linux
+
+```bash
+rm -fr packages
+```
+
+#### Permitir ejecucion
+
+##### Windows
+
+```bash
+Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
+```
+
+#### Modo Offline
+
+##### Instalar
+
+```bash
+pip install --no-index --find-links packages -r requirements.txt
+```
+
+##### Generar
+
+```bash
+pip download -r requirements.txt -d ./offline_packages --only-binary :all:
 ```
 
 ## 🛠️ Procesos de automatización
@@ -84,7 +147,6 @@ python -m PyInstaller --icon="vendor/favicon.ico" main.py
 /core
   ├── /controller            # Lógica de negocio
   │   ├── utils              # Metodos reutilizables o compartidos
-  ├── /plugins               # Carpeta contenedora de los plugins, librerías o ejecutables
   ├── /vendor                # Contiene archivos temp, imagenes, txt
 ```
 
